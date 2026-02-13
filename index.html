@@ -6,10 +6,11 @@
     <title>S8CRX | أرشيف ريسبكت</title>
     <style>
         :root {
-            --primary-color: #e63946; /* لون أحمر غامق للهوية */
+            --primary-color: #e63946; 
             --bg-dark: #0a0a0a;
             --text-light: #f1f1f1;
             --accent: #ffd700;
+            --designer-color: #00b4d8; /* لون خاص للمصمم */
         }
 
         body {
@@ -27,7 +28,7 @@
             width: 100%;
             padding: 50px 0;
             text-align: center;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://yt3.googleusercontent.com/Zte5CfsWy8k1DqS3Ywtgq5GXyaD0u2iBON-KrCQAwmHTf6MmW_asuHZ8KoslwYt0B-ngpKwX0w=s160-c-k-c0x00ffffff-no-rj'); /* هنا توضع صورة غلاف ريسبكت */
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://via.placeholder.com/1200x400'); 
             background-size: cover;
             border-bottom: 3px solid var(--primary-color);
         }
@@ -69,7 +70,18 @@
             transform: scale(1.02);
         }
 
+        /* تنسيق خاص لزر المصمم */
+        .designer-card {
+            border: 1px dashed var(--designer-color);
+            margin-top: 30px;
+        }
+        
+        .designer-card:hover {
+            border-right: 5px solid var(--designer-color);
+        }
+
         .btn-text h3 { margin: 0; color: var(--primary-color); }
+        .designer-card .btn-text h3 { color: var(--designer-color); }
         .btn-text p { margin: 5px 0 0; font-size: 0.9em; color: #bbb; }
 
         .footer {
@@ -94,7 +106,7 @@
     <header>
         <img src="https://via.placeholder.com/150" alt="S8CRX Logo" class="profile-img">
         <h1>S8CRX - سكار</h1>
-        <p class="slogan">"الموقع الرسمي لسكار"</p>
+        <p class="slogan">"تخضع الروس لعتابه الابه"</p>
     </header>
 
     <div class="container">
@@ -123,10 +135,20 @@
             <span>📩</span>
         </a>
 
+        <hr style="border: 0; border-top: 1px solid #333; margin: 40px 0;">
+
+        <a href="https://discord.com/users/dr7_511" class="link-card designer-card" target="_blank">
+            <div class="btn-text">
+                <h3>التواصل مع مصمم الموقع</h3>
+                <p>طلب تصميم مواقع | ديسكورد: dr7_511</p>
+            </div>
+            <span>🛠️</span>
+        </a>
+
     </div>
 
     <div class="footer">
-        تم تصميم الموقع بواسطة: <a href="#" class="designer-credit">سعود العتيبي ⚡</a>
+        تم تصميم الموقع بواسطة: <a href="https://discord.com/users/dr7_511" class="designer-credit">سعود العتيبي ⚡</a>
         <br>
         جميع الحقوق محفوظة لـ s8crx &copy; 2026
     </div>
