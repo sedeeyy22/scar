@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S8CRX | أرشيف ريسبكت</title>
+    <style>
+        :root {
+            --primary-color: #e63946; /* لون أحمر غامق للهوية */
+            --bg-dark: #0a0a0a;
+            --text-light: #f1f1f1;
+            --accent: #ffd700;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            padding: 50px 0;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://via.placeholder.com/1200x400'); /* هنا توضع صورة غلاف ريسبكت */
+            background-size: cover;
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        h1 { margin: 10px 0; font-size: 2.5em; letter-spacing: 2px; }
+        .slogan { color: var(--accent); font-style: italic; margin-bottom: 30px; }
+
+        .container {
+            max-width: 800px;
+            width: 90%;
+            padding: 40px 0;
+        }
+
+        .link-card {
+            background: #1a1a1a;
+            margin: 15px 0;
+            padding: 20px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.3s;
+            text-decoration: none;
+            color: white;
+            border-right: 5px solid transparent;
+        }
+
+        .link-card:hover {
+            background: #252525;
+            border-right: 5px solid var(--primary-color);
+            transform: scale(1.02);
+        }
+
+        .btn-text h3 { margin: 0; color: var(--primary-color); }
+        .btn-text p { margin: 5px 0 0; font-size: 0.9em; color: #bbb; }
+
+        .footer {
+            margin-top: 50px;
+            padding: 20px;
+            text-align: center;
+            font-size: 0.8em;
+            color: #666;
+            border-top: 1px solid #333;
+            width: 100%;
+        }
+
+        .designer-credit {
+            color: var(--accent);
+            font-weight: bold;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="https://via.placeholder.com/150" alt="S8CRX Logo" class="profile-img">
+        <h1>S8CRX - سكار</h1>
+        <p class="slogan">"تخضع الروس لعتابه الابه"</p>
+    </header>
+
+    <div class="container">
+        
+        <a href="https://www.youtube.com/@s8crx" class="link-card" target="_blank">
+            <div class="btn-text">
+                <h3>قناة سكار الرسمية</h3>
+                <p>لمتابعة أقوى وثائقيات سيرفر ريسبكت</p>
+            </div>
+            <span>▶</span>
+        </a>
+
+        <a href="#" class="link-card" target="_blank">
+            <div class="btn-text">
+                <h3>سيرفر سكار (Discord)</h3>
+                <p>انضم لمجتمع سكار وتابع الكواليس</p>
+            </div>
+            <span>💬</span>
+        </a>
+
+        <a href="#" class="link-card">
+            <div class="btn-text">
+                <h3>تواصل مع سكار</h3>
+                <p>للإعلانات، الاستفسارات، أو إرسال قصص السيرفر</p>
+            </div>
+            <span>📩</span>
+        </a>
+
+    </div>
+
+    <div class="footer">
+        تم تصميم الموقع بواسطة: <a href="#" class="designer-credit">عتابه الابه ⚡</a>
+        <br>
+        جميع الحقوق محفوظة لـ s8crx &copy; 2026
+    </div>
+
+</body>
+</html>
