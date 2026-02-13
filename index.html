@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S8CRX | أرشيف ريسبكت</title>
+    <title>S8CRX | موقع سكار الرسمي</title>
     <style>
         :root {
             --primary-color: #e63946; 
@@ -24,25 +24,36 @@
             align-items: center;
         }
 
+        /* تعديل الهيدر ليصبح بنر كامل */
         header {
             width: 100%;
-            padding: 50px 0;
+            height: 350px; /* طول البنر */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://via.placeholder.com/1200x400'); 
+            /* استبدل الرابط أدناه برابط صورتك الخاصة */
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://cdn.discordapp.com/attachments/1316823907876995278/1471891358628188276/5_20241028204156.png?ex=69909526&is=698f43a6&hm=6c82d6436f836fbbe7123efc17817dccc64b76c9ee561616cdda2794ffb66515&'); 
             background-size: cover;
-            border-bottom: 3px solid var(--primary-color);
+            background-position: center;
+            border-bottom: 4px solid var(--primary-color);
         }
 
-        .profile-img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 4px solid var(--primary-color);
-            margin-bottom: 15px;
+        h1 { 
+            margin: 0; 
+            font-size: 3em; 
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+            letter-spacing: 2px; 
         }
 
-        h1 { margin: 10px 0; font-size: 2.5em; letter-spacing: 2px; }
-        .slogan { color: var(--accent); font-style: italic; margin-bottom: 30px; }
+        .slogan { 
+            color: var(--accent); 
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 10px;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+        }
 
         .container {
             max-width: 800px;
@@ -103,9 +114,9 @@
 <body>
 
     <header>
-        <img src="https://via.placeholder.com/150" alt="S8CRX Logo" class="profile-img">
+        <!-- تم تحويل القسم إلى بنر وحذف الصورة الدائرية بناءً على طلبك -->
         <h1>S8CRX - سكار</h1>
-        <p class="slogan">"تخضع الروس لعتابه الابه"</p>
+        <p class="slogan">موقع سكار الرسمي</p>
     </header>
 
     <div class="container">
