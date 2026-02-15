@@ -11,6 +11,8 @@
             --text-light: #f1f1f1;
             --accent: #ffd700;
             --designer-color: #00b4d8;
+            --insta-color: #E1306C;
+            --twitter-color: #1DA1F2;
         }
 
         body {
@@ -24,16 +26,14 @@
             align-items: center;
         }
 
-        /* تعديل الهيدر ليصبح بنر كامل */
         header {
             width: 100%;
-            height: 350px; /* طول البنر */
+            height: 350px; 
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            /* استبدل الرابط أدناه برابط صورتك الخاصة */
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://cdn.discordapp.com/attachments/1316823907876995278/1471891358628188276/5_20241028204156.png?ex=69909526&is=698f43a6&hm=6c82d6436f836fbbe7123efc17817dccc64b76c9ee561616cdda2794ffb66515&'); 
             background-size: cover;
             background-position: center;
@@ -81,6 +81,13 @@
             transform: scale(1.02);
         }
 
+        /* ألوان خاصة للأزرار الجديدة */
+        .insta-card:hover { border-right: 5px solid var(--insta-color); }
+        .twitter-card:hover { border-right: 5px solid var(--twitter-color); }
+        
+        .insta-card .btn-text h3 { color: var(--insta-color); }
+        .twitter-card .btn-text h3 { color: var(--twitter-color); }
+
         .designer-card {
             border: 1px dashed var(--designer-color);
             margin-top: 30px;
@@ -114,7 +121,6 @@
 <body>
 
     <header>
-        <!-- تم تحويل القسم إلى بنر وحذف الصورة الدائرية بناءً على طلبك -->
         <h1>S8CRX - سكار</h1>
         <p class="slogan">موقع سكار الرسمي</p>
     </header>
@@ -127,6 +133,24 @@
                 <p>لمتابعة أقوى وثائقيات سيرفر ريسبكت</p>
             </div>
             <span>▶</span>
+        </a>
+
+        <!-- زر إنستقرام المضاف -->
+        <a href="https://www.instagram.com/s8crx?igsh=MWs0Nml3ZXFycTcxag%3D%3D&utm_source=qr" class="link-card insta-card" target="_blank">
+            <div class="btn-text">
+                <h3>إنستقرام سكار</h3>
+                <p>تابع يوميات ريسبكت والكواليس على Instagram</p>
+            </div>
+            <span>📸</span>
+        </a>
+
+        <!-- زر تويتر المضاف -->
+        <a href="https://x.com/scar9_x" class="link-card twitter-card" target="_blank">
+            <div class="btn-text">
+                <h3>تويتر سكار (X)</h3>
+                <p>آخر الأخبار والتغريدات الرسمية</p>
+            </div>
+            <span>🐦</span>
         </a>
 
         <a href="https://discord.gg/XzmuRQce" class="link-card" target="_blank">
