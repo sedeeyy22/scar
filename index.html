@@ -1,166 +1,187 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>INSIDE CITY | ADMIN TERMINAL</title>
+    <title>INSIDE CITY | GOVERNMENT SYSTEM</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Courier+Prime&display=swap');
-
-        body {
-            background-color: #020202;
-            color: #ffffff;
-            font-family: 'Courier Prime', monospace;
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        /* نيون انسايد (أبيض ورمادي مع توهج خفيف) */
-        .neon-text { text-shadow: 0 0 10px rgba(255, 255, 255, 0.7); }
-
-        #auth-screen { text-align: center; border: 1px solid #444; padding: 40px; background: rgba(255,255,255,0.02); }
-
-        #main-system {
-            display: none;
-            width: 95%;
-            height: 90%;
-            flex-direction: column;
-            padding: 20px;
-            border: 2px solid #333;
-        }
-
-        .terminal-box {
-            flex-grow: 1;
-            padding: 15px;
-            background: #050505;
-            overflow-y: auto;
-            border-bottom: 1px solid #333;
-            margin-bottom: 10px;
-        }
-
-        input {
-            background: transparent;
-            border: 1px solid #555;
-            color: #fff;
-            padding: 10px;
-            font-family: inherit;
-            outline: none;
-        }
-
-        .status-bar {
-            display: flex;
-            justify-content: space-between;
-            background: #111;
-            padding: 5px 15px;
-            font-size: 0.8em;
-            border-bottom: 1px solid #fff;
-        }
-
-        .log-entry { margin-bottom: 5px; border-left: 3px solid #555; padding-left: 10px; }
-        .inside-success { color: #00ff41; border-left-color: #00ff41; }
-        .inside-alert { color: #ff3e3e; border-left-color: #ff3e3e; }
+        :root { --primary: #00d4ff; --bg: #05060a; --panel: #0d1117; }
+        body { background: var(--bg); color: #fff; font-family: 'Cairo', sans-serif; margin: 0; display: flex; height: 100vh; overflow: hidden; }
+        #lock-screen { position: fixed; inset: 0; background: var(--bg); z-index: 1000; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        input[type="password"] { background: #1a1d23; border: 1px solid var(--primary); color: #fff; padding: 12px; border-radius: 5px; text-align: center; width: 250px; outline: none; }
+        .main-content { flex-grow: 1; display: flex; flex-direction: column; padding: 20px; gap: 15px; }
+        .dashboard { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .card { background: var(--panel); padding: 15px; border: 1px solid #30363d; border-radius: 8px; text-align: center; }
+        .card p { font-size: 1.4rem; font-weight: bold; color: var(--primary); margin: 5px 0; }
+        .terminal { flex-grow: 1; background: #000; border: 1px solid var(--primary); border-radius: 5px; display: flex; flex-direction: column; font-family: 'Courier Prime', monospace; }
+        #logs { flex-grow: 1; padding: 15px; overflow-y: auto; color: #00ff41; font-size: 0.9rem; }
+        .controls { background: #111; padding: 15px; border-top: 1px solid var(--primary); display: flex; flex-direction: column; gap: 10px; }
+        select, .cmd-in { background: #1a1d23; border: 1px solid #333; color: #fff; padding: 10px; outline: none; border-radius: 4px; font-family: 'Cairo', sans-serif; }
     </style>
 </head>
 <body>
 
-<div id="auth-screen">
-    <h1 class="neon-text">INSIDE CITY</h1>
-    <p>IDENTITY VERIFICATION REQUIRED</p>
-    <input type="password" id="auth-code" placeholder="ENTER ACCESS KEY" maxlength="4">
+<div id="lock-screen">
+    <h1 style="color: var(--primary);">INSIDE CITY | نظام القطاعات الحكومية</h1>
+    <input type="password" id="pass-input" placeholder="أدخل رمز الدخول">
 </div>
 
-<div id="main-system">
-    <div class="status-bar">
-        <span>CORE: INSIDE_SYSTEM_V3</span>
-        <span id="clock">00:00:00</span>
-        <span style="color: #00ff41;">● ENCRYPTED</span>
+<div class="main-content">
+    <div class="dashboard">
+        <div class="card"><h3>حالة القطاعات</h3><p>جاهز للعمل</p></div>
+        <div class="card"><h3>الوزارات المربوطة</h3><p>6 قطاعات</p></div>
+        <div class="card"><h3>التوقيت</h3><p id="clock">00:00:00</p></div>
     </div>
 
-    <div class="terminal-box" id="logs">
-        <div class="log-entry inside-success">>> INSIDE CITY OPERATING SYSTEM LOADED.</div>
-        <div class="log-entry">>> WELCOME, SAUD. WAITING FOR COMMAND...</div>
-    </div>
-
-    <div style="display: flex; gap: 10px; align-items: center; padding: 10px; background: #0a0a0a;">
-        <span style="color: #00ff41;">SAUD@INSIDE:~$</span>
-        <input type="text" id="cmd-input" style="flex-grow: 1; border: none;" autofocus autocomplete="off">
+    <div class="terminal">
+        <div id="logs">>> نظام انسايد سيتي الحكومي.. اختر الجهة المستهدفة وابدأ البث.</div>
+        <div class="controls">
+            <div style="display: flex; gap: 10px;">
+                <label style="align-self: center;">توجيه البث:</label>
+                <select id="target" style="flex-grow: 1;">
+                    <option value="all">⚡ بث شامل (إرسال لكل الوزارات والقطاعات)</option>
+                    <option value="news">📢 إعلانات المواطنين العامة</option>
+                    <option value="intel">👁️ جهاز الاستخبارات</option>
+                    <option value="defense">🎖️ وزارة الدفاع</option>
+                    <option value="health">🚑 وزارة الصحة</option>
+                    <option value="police">🚓 وزارة الداخلية (الشرطة)</option>
+                    <option value="admin">🔒 مكتب الإدارة العليا</option>
+                </select>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <span style="color: var(--primary); align-self: center;">COMMAND ></span>
+                <input type="text" id="msg-input" class="cmd-in" style="flex-grow: 1;" placeholder="اكتب التعميم الوزاري هنا...">
+            </div>
+        </div>
     </div>
 </div>
 
 <script>
-    const AUTH_CODE = "1234"; // الرمز السري حقك
-    const WEBHOOK_URL = "رابط_الويبهوك_هنا"; // حط رابط الويبهوك حق سيرفر انسايد هنا
+    // --- الإعدادات: حط الروابط الجديدة هنا ---
+    const CONFIG = {<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>INSIDE CITY | GOVERNMENT SYSTEM</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Courier+Prime&display=swap');
+        :root { --primary: #00d4ff; --bg: #05060a; --panel: #0d1117; }
+        body { background: var(--bg); color: #fff; font-family: 'Cairo', sans-serif; margin: 0; display: flex; height: 100vh; overflow: hidden; }
+        #lock-screen { position: fixed; inset: 0; background: var(--bg); z-index: 1000; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        input[type="password"] { background: #1a1d23; border: 1px solid var(--primary); color: #fff; padding: 12px; border-radius: 5px; text-align: center; width: 250px; outline: none; }
+        .main-content { flex-grow: 1; display: flex; flex-direction: column; padding: 20px; gap: 15px; }
+        .dashboard { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .card { background: var(--panel); padding: 15px; border: 1px solid #30363d; border-radius: 8px; text-align: center; }
+        .card p { font-size: 1.4rem; font-weight: bold; color: var(--primary); margin: 5px 0; }
+        .terminal { flex-grow: 1; background: #000; border: 1px solid var(--primary); border-radius: 5px; display: flex; flex-direction: column; font-family: 'Courier Prime', monospace; }
+        #logs { flex-grow: 1; padding: 15px; overflow-y: auto; color: #00ff41; font-size: 0.9rem; }
+        .controls { background: #111; padding: 15px; border-top: 1px solid var(--primary); display: flex; flex-direction: column; gap: 10px; }
+        select, .cmd-in { background: #1a1d23; border: 1px solid #333; color: #fff; padding: 10px; outline: none; border-radius: 4px; font-family: 'Cairo', sans-serif; }
+    </style>
+</head>
+<body>
 
-    const authInput = document.getElementById('auth-code');
-    const authScreen = document.getElementById('auth-screen');
-    const mainSystem = document.getElementById('main-system');
-    const logs = document.getElementById('logs');
-    const cmdInput = document.getElementById('cmd-input');
+<div id="lock-screen">
+    <h1 style="color: var(--primary);">INSIDE CITY | نظام القطاعات الحكومية</h1>
+    <input type="password" id="pass-input" placeholder="أدخل رمز الدخول">
+</div>
 
-    setInterval(() => {
-        document.getElementById('clock').textContent = new Date().toLocaleTimeString();
-    }, 1000);
+<div class="main-content">
+    <div class="dashboard">
+        <div class="card"><h3>حالة القطاعات</h3><p>جاهز للعمل</p></div>
+        <div class="card"><h3>الوزارات المربوطة</h3><p>6 قطاعات</p></div>
+        <div class="card"><h3>التوقيت</h3><p id="clock">00:00:00</p></div>
+    </div>
 
-    authInput.addEventListener('input', () => {
-        if (authInput.value === AUTH_CODE) {
-            authScreen.style.display = 'none';
-            mainSystem.style.display = 'flex';
-            cmdInput.focus();
+    <div class="terminal">
+        <div id="logs">>> نظام انسايد سيتي الحكومي.. اختر الجهة المستهدفة وابدأ البث.</div>
+        <div class="controls">
+            <div style="display: flex; gap: 10px;">
+                <label style="align-self: center;">توجيه البث:</label>
+                <select id="target" style="flex-grow: 1;">
+                    <option value="all">⚡ بث شامل (إرسال لكل الوزارات والقطاعات)</option>
+                    <option value="news">📢 إعلانات المواطنين العامة</option>
+                    <option value="intel">👁️ جهاز الاستخبارات</option>
+                    <option value="defense">🎖️ وزارة الدفاع</option>
+                    <option value="health">🚑 وزارة الصحة</option>
+                    <option value="police">🚓 وزارة الداخلية (الشرطة)</option>
+                    <option value="admin">🔒 مكتب الإدارة العليا</option>
+                </select>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <span style="color: var(--primary); align-self: center;">COMMAND ></span>
+                <input type="text" id="msg-input" class="cmd-in" style="flex-grow: 1;" placeholder="اكتب التعميم الوزاري هنا...">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // --- الإعدادات: حط الروابط الجديدة هنا ---
+    const CONFIG = {"https://discord.com/api/webhooks/1483288762296569896/BvGPfabA9-QDkbCrUA1gdtKYO3vBE9XVdjTArggKoGs2E_Yi8-oJKTZolpmUe2-4B5gi"
+        pass: "DR7",
+        webhooks: {
+            news:  "https://discord.com/channels/1461015247707045890/1483293408805257327",
+            intel: "https://discord.com/channels/1461015247707045890/1483293745448488991",
+            defense: "https://discord.com/channels/1461015247707045890/1483293921088897155",
+            health: "https://discord.com/channels/1461015247707045890/1483293821835153550",
+            police: "https://discord.com/channels/1461015247707045890/1483293846321238027",
+            admin: "https://discord.com/channels/1461015247707045890/1462796937257291776"
+        }
+    };
+
+    document.getElementById('pass-input').addEventListener('input', (e) => {
+        if (e.target.value === CONFIG.pass) {
+            document.getElementById('lock-screen').style.display = 'none';
         }
     });
 
-    async function broadcastToDiscord(msg) {
-        try {
-            await fetch(WEBHOOK_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    username: "INSIDE SYSTEM",
-                    content: `📢 **إعلان من النظام:** \n ${msg}`
-                })
-            });
-            addLog("Broadcast sent to Discord.", "inside-success");
-        } catch {
-            addLog("Error connecting to Discord.", "inside-alert");
-        }
-    }
+    setInterval(() => { document.getElementById('clock').textContent = new Date().toLocaleTimeString('ar-SA'); }, 1000);
 
-    function addLog(text, type = "") {
+    function addLog(text, color = "#00ff41") {
         const div = document.createElement('div');
-        div.className = `log-entry ${type}`;
-        div.innerHTML = `>> ${text}`;
+        div.style.color = color;
+        div.innerHTML = `[${new Date().toLocaleTimeString()}] >> ${text}`;
+        const logs = document.getElementById('logs');
         logs.appendChild(div);
         logs.scrollTop = logs.scrollHeight;
     }
 
-    cmdInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            const val = cmdInput.value.trim();
-            const args = val.split(' ');
-            const cmd = args[0].toLowerCase();
+    async function sendRequest(url, message, name) {
+        if (!url || url.includes("رابط_")) return false;
+        try {
+            await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    username: `INSIDE OS | ${name.toUpperCase()}`,
+                    avatar_url: "https://i.imgur.com/AfFp7pu.png",
+                    content: message
+                })
+            });
+            return true;
+        } catch { return false; }
+    }
 
-            if (cmd === 'help') {
-                addLog("Commands: [send] [status] [clear] [exit]");
-            } else if (cmd === 'send') {
-                const msg = args.slice(1).join(' ');
-                broadcastToDiscord(msg);
-            } else if (cmd === 'status') {
-                addLog("INSIDE CITY SERVER: ONLINE", "inside-success");
-                addLog("ADMIN: SAUD ABID", "inside-success");
-            } else if (cmd === 'clear') {
-                logs.innerHTML = '';
-            } else if (cmd === 'exit') {
-                location.reload();
+    document.getElementById('msg-input').addEventListener('keydown', async (e) => {
+        if (e.key === 'Enter') {
+            const msg = e.target.value.trim();
+            const target = document.getElementById('target').value;
+            if (!msg) return;
+
+            if (target === 'all') {
+                addLog("جاري بدء البث الحكومي الشامل لكل القطاعات...", "cyan");
+                for (const [key, url] of Object.entries(CONFIG.webhooks)) {
+                    const ok = await sendRequest(url, `🚨 **تعميم إداري شامل لجميع القطاعات:**\n${msg}`, key);
+                    if (ok) addLog(`تم إبلاغ [${key}] بنجاح ✅`);
+                }
             } else {
-                addLog(`Unknown command: ${cmd}`, "inside-alert");
+                const ok = await sendRequest(CONFIG.webhooks[target], msg, target);
+                if (ok) addLog(`تم إرسال البرقية إلى [${target}] ✅`);
             }
-            cmdInput.value = '';
+            e.target.value = '';
         }
     });
 </script>
-
 </body>
 </html>
