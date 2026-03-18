@@ -2,186 +2,219 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>INSIDE CITY | GOVERNMENT SYSTEM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inside City | الحـياة الواقـعية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Courier+Prime&display=swap');
-        :root { --primary: #00d4ff; --bg: #05060a; --panel: #0d1117; }
-        body { background: var(--bg); color: #fff; font-family: 'Cairo', sans-serif; margin: 0; display: flex; height: 100vh; overflow: hidden; }
-        #lock-screen { position: fixed; inset: 0; background: var(--bg); z-index: 1000; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        input[type="password"] { background: #1a1d23; border: 1px solid var(--primary); color: #fff; padding: 12px; border-radius: 5px; text-align: center; width: 250px; outline: none; }
-        .main-content { flex-grow: 1; display: flex; flex-direction: column; padding: 20px; gap: 15px; }
-        .dashboard { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .card { background: var(--panel); padding: 15px; border: 1px solid #30363d; border-radius: 8px; text-align: center; }
-        .card p { font-size: 1.4rem; font-weight: bold; color: var(--primary); margin: 5px 0; }
-        .terminal { flex-grow: 1; background: #000; border: 1px solid var(--primary); border-radius: 5px; display: flex; flex-direction: column; font-family: 'Courier Prime', monospace; }
-        #logs { flex-grow: 1; padding: 15px; overflow-y: auto; color: #00ff41; font-size: 0.9rem; }
-        .controls { background: #111; padding: 15px; border-top: 1px solid var(--primary); display: flex; flex-direction: column; gap: 10px; }
-        select, .cmd-in { background: #1a1d23; border: 1px solid #333; color: #fff; padding: 10px; outline: none; border-radius: 4px; font-family: 'Cairo', sans-serif; }
+        :root {
+            --primary: #ff6600; /* البرتقالي الرسمي لانسايد */
+            --primary-glow: rgba(255, 102, 0, 0.5);
+            --bg-dark: #050505;
+            --card-bg: rgba(20, 20, 20, 0.8);
+            --text-main: #ffffff;
+            --text-dim: #999;
+        }
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* --- تأثير الخلفية المتحركة --- */
+        .bg-glow {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, #1a0f00 0%, #050505 100%);
+            z-index: -1;
+        }
+
+        /* --- الهيدر --- */
+        header {
+            padding: 25px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 102, 0, 0.1);
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: #fff;
+        }
+        .logo span { color: var(--primary); text-shadow: 0 0 20px var(--primary-glow); }
+
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: var(--primary); }
+
+        /* --- واجهة البداية --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(60px, 12vw, 120px);
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .hero-content p {
+            font-size: 22px;
+            color: var(--text-dim);
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+        }
+
+        /* --- الأزرار --- */
+        .btn-main {
+            display: inline-block;
+            background: var(--primary);
+            color: #000;
+            padding: 15px 45px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 18px;
+            box-shadow: 0 10px 30px rgba(255, 102, 0, 0.3);
+            transition: 0.4s;
+        }
+        .btn-main:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px var(--primary-glow);
+            background: #ff8800;
+        }
+
+        /* --- قسم التقديمات --- */
+        .apply-section { padding: 100px 0; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid #222;
+            transition: 0.4s;
+            text-align: center;
+        }
+        .card:hover {
+            border-color: var(--primary);
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .card i { font-size: 50px; color: var(--primary); margin-bottom: 20px; }
+        .card h3 { font-size: 24px; margin-bottom: 15px; }
+        .card p { color: var(--text-dim); margin-bottom: 25px; font-size: 15px; }
+
+        .btn-card {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 700;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 5px;
+            transition: 0.3s;
+        }
+        .btn-card:hover { color: #fff; border-color: #fff; }
+
+        /* --- الفوتر --- */
+        footer {
+            padding: 50px 0;
+            text-align: center;
+            border-top: 1px solid #111;
+            color: #444;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero-content h1 { font-size: 70px; }
+        }
     </style>
 </head>
 <body>
 
-<div id="lock-screen">
-    <h1 style="color: var(--primary);">INSIDE CITY | نظام القطاعات الحكومية</h1>
-    <input type="password" id="pass-input" placeholder="أدخل رمز الدخول">
-</div>
+    <div class="bg-glow"></div>
 
-<div class="main-content">
-    <div class="dashboard">
-        <div class="card"><h3>حالة القطاعات</h3><p>جاهز للعمل</p></div>
-        <div class="card"><h3>الوزارات المربوطة</h3><p>6 قطاعات</p></div>
-        <div class="card"><h3>التوقيت</h3><p id="clock">00:00:00</p></div>
-    </div>
+    <header>
+        <div class="container nav-content">
+            <div class="logo">INSIDE <span>CITY</span></div>
+            <nav class="nav-links">
+                <a href="#">الرئيسية</a>
+                <a href="#apply">التقديمات</a>
+                <a href="#">القوانين</a>
+                <a href="https://discord.gg/gwJrTtBuu">الدعم الفني</a>
+            </nav>
+            <a href="https://discord.gg/gwJrTtBuu" class="btn-main" style="padding: 10px 25px; font-size: 14px;">دخول السيرفر</a>
+        </div>
+    </header>
 
-    <div class="terminal">
-        <div id="logs">>> نظام انسايد سيتي الحكومي.. اختر الجهة المستهدفة وابدأ البث.</div>
-        <div class="controls">
-            <div style="display: flex; gap: 10px;">
-                <label style="align-self: center;">توجيه البث:</label>
-                <select id="target" style="flex-grow: 1;">
-                    <option value="all">⚡ بث شامل (إرسال لكل الوزارات والقطاعات)</option>
-                    <option value="news">📢 إعلانات المواطنين العامة</option>
-                    <option value="intel">👁️ جهاز الاستخبارات</option>
-                    <option value="defense">🎖️ وزارة الدفاع</option>
-                    <option value="health">🚑 وزارة الصحة</option>
-                    <option value="police">🚓 وزارة الداخلية (الشرطة)</option>
-                    <option value="admin">🔒 مكتب الإدارة العليا</option>
-                </select>
+    <section class="hero">
+        <div class="container hero-content">
+            <h1 data-aos="fade-up">INSIDE <span style="color:var(--primary)">CITY</span></h1>
+            <p>القمة في عالم الرول بلاي.. هنا تبدأ أسطورتك</p>
+            <a href="https://discord.gg/gwJrTtBuu" class="btn-main"><i class="fab fa-discord"></i> انضم إلى مجتمعنا</a>
+        </div>
+    </section>
+
+    <section class="container apply-section" id="apply">
+        <div class="grid">
+            <div class="card">
+                <i class="fas fa-user-shield"></i>
+                <h3>قطاع الشرطة</h3>
+                <p>هل أنت مستعد لفرض القانون وحماية مواطني انسايد سيتي؟</p>
+                <a href="https://discord.gg/gwJrTtBuu" class="btn-card">تقديم الآن</a>
             </div>
-            <div style="display: flex; gap: 10px;">
-                <span style="color: var(--primary); align-self: center;">COMMAND ></span>
-                <input type="text" id="msg-input" class="cmd-in" style="flex-grow: 1;" placeholder="اكتب التعميم الوزاري هنا...">
+            <div class="card">
+                <i class="fas fa-heartbeat"></i>
+                <h3>قطاع الإسعاف</h3>
+                <p>كن بطلاً وأنقذ الأرواح في أسرع طاقم طبي بالمدينة.</p>
+                <a href="https://discord.gg/gwJrTtBuu" class="btn-card">تقديم الآن</a>
+            </div>
+            <div class="card">
+                <i class="fas fa-tools"></i>
+                <h3>الميكانيكي</h3>
+                <p>عشق السيارات والخدمة السريعة؟ مكانك محجوز معنا.</p>
+                <a href="https://discord.gg/gwJrTtBuu" class="btn-card">تقديم الآن</a>
             </div>
         </div>
-    </div>
-</div>
+    </section>
 
-<script>
-    // --- الإعدادات: حط الروابط الجديدة هنا ---
-    const CONFIG = {<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>INSIDE CITY | GOVERNMENT SYSTEM</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Courier+Prime&display=swap');
-        :root { --primary: #00d4ff; --bg: #05060a; --panel: #0d1117; }
-        body { background: var(--bg); color: #fff; font-family: 'Cairo', sans-serif; margin: 0; display: flex; height: 100vh; overflow: hidden; }
-        #lock-screen { position: fixed; inset: 0; background: var(--bg); z-index: 1000; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        input[type="password"] { background: #1a1d23; border: 1px solid var(--primary); color: #fff; padding: 12px; border-radius: 5px; text-align: center; width: 250px; outline: none; }
-        .main-content { flex-grow: 1; display: flex; flex-direction: column; padding: 20px; gap: 15px; }
-        .dashboard { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .card { background: var(--panel); padding: 15px; border: 1px solid #30363d; border-radius: 8px; text-align: center; }
-        .card p { font-size: 1.4rem; font-weight: bold; color: var(--primary); margin: 5px 0; }
-        .terminal { flex-grow: 1; background: #000; border: 1px solid var(--primary); border-radius: 5px; display: flex; flex-direction: column; font-family: 'Courier Prime', monospace; }
-        #logs { flex-grow: 1; padding: 15px; overflow-y: auto; color: #00ff41; font-size: 0.9rem; }
-        .controls { background: #111; padding: 15px; border-top: 1px solid var(--primary); display: flex; flex-direction: column; gap: 10px; }
-        select, .cmd-in { background: #1a1d23; border: 1px solid #333; color: #fff; padding: 10px; outline: none; border-radius: 4px; font-family: 'Cairo', sans-serif; }
-    </style>
-</head>
-<body>
-
-<div id="lock-screen">
-    <h1 style="color: var(--primary);">INSIDE CITY | نظام القطاعات الحكومية</h1>
-    <input type="password" id="pass-input" placeholder="أدخل رمز الدخول">
-</div>
-
-<div class="main-content">
-    <div class="dashboard">
-        <div class="card"><h3>حالة القطاعات</h3><p>جاهز للعمل</p></div>
-        <div class="card"><h3>الوزارات المربوطة</h3><p>6 قطاعات</p></div>
-        <div class="card"><h3>التوقيت</h3><p id="clock">00:00:00</p></div>
-    </div>
-
-    <div class="terminal">
-        <div id="logs">>> نظام انسايد سيتي الحكومي.. اختر الجهة المستهدفة وابدأ البث.</div>
-        <div class="controls">
-            <div style="display: flex; gap: 10px;">
-                <label style="align-self: center;">توجيه البث:</label>
-                <select id="target" style="flex-grow: 1;">
-                    <option value="all">⚡ بث شامل (إرسال لكل الوزارات والقطاعات)</option>
-                    <option value="news">📢 إعلانات المواطنين العامة</option>
-                    <option value="intel">👁️ جهاز الاستخبارات</option>
-                    <option value="defense">🎖️ وزارة الدفاع</option>
-                    <option value="health">🚑 وزارة الصحة</option>
-                    <option value="police">🚓 وزارة الداخلية (الشرطة)</option>
-                    <option value="admin">🔒 مكتب الإدارة العليا</option>
-                </select>
-            </div>
-            <div style="display: flex; gap: 10px;">
-                <span style="color: var(--primary); align-self: center;">COMMAND ></span>
-                <input type="text" id="msg-input" class="cmd-in" style="flex-grow: 1;" placeholder="اكتب التعميم الوزاري هنا...">
-            </div>
+    <footer>
+        <div class="container">
+            <p>© 2026 INSIDE CITY RP. جميع الحقوق محفوظة لصاحب السيرفر.</p>
         </div>
-    </div>
-</div>
+    </footer>
 
-<script>
-    // --- الإعدادات: حط الروابط الجديدة هنا ---
-    const CONFIG = {"https://discord.com/api/webhooks/1483288762296569896/BvGPfabA9-QDkbCrUA1gdtKYO3vBE9XVdjTArggKoGs2E_Yi8-oJKTZolpmUe2-4B5gi"
-        pass: "DR7",
-        webhooks: {
-            news:  "https://discord.com/channels/1461015247707045890/1483293408805257327",
-            intel: "https://discord.com/channels/1461015247707045890/1483293745448488991",
-            defense: "https://discord.com/channels/1461015247707045890/1483293921088897155",
-            health: "https://discord.com/channels/1461015247707045890/1483293821835153550",
-            police: "https://discord.com/channels/1461015247707045890/1483293846321238027",
-            admin: "https://discord.com/channels/1461015247707045890/1462796937257291776"
-        }
-    };
-
-    document.getElementById('pass-input').addEventListener('input', (e) => {
-        if (e.target.value === CONFIG.pass) {
-            document.getElementById('lock-screen').style.display = 'none';
-        }
-    });
-
-    setInterval(() => { document.getElementById('clock').textContent = new Date().toLocaleTimeString('ar-SA'); }, 1000);
-
-    function addLog(text, color = "#00ff41") {
-        const div = document.createElement('div');
-        div.style.color = color;
-        div.innerHTML = `[${new Date().toLocaleTimeString()}] >> ${text}`;
-        const logs = document.getElementById('logs');
-        logs.appendChild(div);
-        logs.scrollTop = logs.scrollHeight;
-    }
-
-    async function sendRequest(url, message, name) {
-        if (!url || url.includes("رابط_")) return false;
-        try {
-            await fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    username: `INSIDE OS | ${name.toUpperCase()}`,
-                    avatar_url: "https://i.imgur.com/AfFp7pu.png",
-                    content: message
-                })
-            });
-            return true;
-        } catch { return false; }
-    }
-
-    document.getElementById('msg-input').addEventListener('keydown', async (e) => {
-        if (e.key === 'Enter') {
-            const msg = e.target.value.trim();
-            const target = document.getElementById('target').value;
-            if (!msg) return;
-
-            if (target === 'all') {
-                addLog("جاري بدء البث الحكومي الشامل لكل القطاعات...", "cyan");
-                for (const [key, url] of Object.entries(CONFIG.webhooks)) {
-                    const ok = await sendRequest(url, `🚨 **تعميم إداري شامل لجميع القطاعات:**\n${msg}`, key);
-                    if (ok) addLog(`تم إبلاغ [${key}] بنجاح ✅`);
-                }
-            } else {
-                const ok = await sendRequest(CONFIG.webhooks[target], msg, target);
-                if (ok) addLog(`تم إرسال البرقية إلى [${target}] ✅`);
-            }
-            e.target.value = '';
-        }
-    });
-</script>
 </body>
 </html>
